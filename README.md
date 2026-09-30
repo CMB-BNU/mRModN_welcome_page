@@ -35,23 +35,23 @@ mRModN is composed of five independent project repositories. Each repository has
 RNA modification prediction involves several related challenges: one RNA sequence may contain multiple modification types; informative signals may extend beyond a short fixed window; sequence order and RNA spatial structure provide complementary evidence; and modification classes are often strongly imbalanced. mRModN addresses these challenges in one sequence–structure modeling pipeline.
 
 ```mermaid
-flowchart LR
-    S[RNA sequence] --> SEQ[Sequence representation]
-    R[RNA spatial structure] --> STR[Structure representation]
-    SEQ --> EMB[Joint sequence–structure embedding]
+flowchart TB
+    S(RNA sequence) --> SEQ(Sequence representation)
+    R(RNA spatial structure) --> STR(Structure representation)
+    SEQ --> EMB(Joint sequence–structure embedding)
     STR --> EMB
-    EMB --> MOTIF[Multi-view motif discovery]
-    MOTIF --> EXPERT[Hierarchical mixture of experts]
-    EXPERT --> CLASS[Multi-label classification]
-    EXPERT --> ATT[Multi-anchor attention pooling]
-    ATT --> LOC[Nucleotide-level localization]
-    CLASS --> PROFILE[Modification profile]
-    LOC --> EVIDENCE[Position-specific evidence]
+    EMB --> MOTIF(Multi-view motif discovery)
+    MOTIF --> EXPERT(Hierarchical mixture of experts)
+    EXPERT --> CLASS(Multi-label classification)
+    EXPERT --> ATT(Multi-anchor attention pooling)
+    ATT --> LOC(Nucleotide-level localization)
+    CLASS --> PROFILE(Modification profile)
+    LOC --> EVIDENCE(Position-specific evidence)
 
-    classDef input fill:#D5DDD8,stroke:#718078,color:#35423C,stroke-width:1px
-    classDef representation fill:#CAD8E0,stroke:#718692,color:#35434C,stroke-width:1px
-    classDef core fill:#C7C1CE,stroke:#817789,color:#443F4B,stroke-width:1px
-    classDef output fill:#D8C9C0,stroke:#907B6D,color:#4E4139,stroke-width:1px
+    classDef input fill:#D9E2DE,stroke:#879A91,color:#3F514A,stroke-width:1px
+    classDef representation fill:#D5E0E5,stroke:#8B9DA4,color:#405159,stroke-width:1px
+    classDef core fill:#DDD8E2,stroke:#988DA1,color:#514957,stroke-width:1px
+    classDef output fill:#E5DCD5,stroke:#A69487,color:#5C4F47,stroke-width:1px
     class S,R input
     class SEQ,STR,EMB representation
     class MOTIF,EXPERT,ATT core
@@ -66,54 +66,54 @@ The architecture is organized into four stages: input representation, structure-
 flowchart TB
     subgraph INPUT[Input and representation]
         direction LR
-        S[RNA sequence] --> O[One-hot and learned features]
-        R[RNA spatial structure] --> G[Structure graph features]
-        O --> E[Sequence–structure embedding]
+        S(RNA sequence) --> O(One-hot and learned features)
+        R(RNA spatial structure) --> G(Structure graph features)
+        O --> E(Sequence–structure embedding)
         G --> E
     end
 
     subgraph DISCOVERY[Multi-view motif discovery]
         direction LR
-        E --> C[Parallel convolutional views]
-        E --> M[Graph-based message passing]
-        C --> U[Feature aggregation and graph weight update]
+        E --> C(Parallel convolutional views)
+        E --> M(Graph-based message passing)
+        C --> U(Feature aggregation and graph weight update)
         M --> U
-        U --> F[Motif-aware representation]
+        U --> F(Motif-aware representation)
     end
 
     subgraph ROUTING[Hierarchical mixture of experts]
         direction LR
-        F --> Q[Hierarchical query router]
-        Q --> P[Modification-group expert pool]
-        P --> X[Expert feature integration]
+        F --> Q(Hierarchical query router)
+        Q --> P(Modification-group expert pool)
+        P --> X(Expert feature integration)
     end
 
     subgraph PREDICTION[Prediction and interpretation]
         direction LR
-        X --> Y[Multi-label classifier]
-        X --> A[Multi-anchor attention pooling]
-        Y --> Y1[Category probabilities]
-        A --> Z[Nucleotide localization]
-        Z --> Z1[Position-specific attention scores]
+        X --> Y(Multi-label classifier)
+        X --> A(Multi-anchor attention pooling)
+        Y --> Y1(Category probabilities)
+        A --> Z(Nucleotide localization)
+        Z --> Z1(Position-specific attention scores)
     end
 
     subgraph TRAINING[Training support]
         direction LR
-        T[Self-adaptive balanced sampler] -.-> O
-        N[Sample augmentation] -.-> O
+        T(Self-adaptive balanced sampler) -.-> O
+        N(Sample augmentation) -.-> O
     end
 
-    style INPUT fill:#E7ECE8,stroke:#8D9B92,stroke-width:1px
-    style DISCOVERY fill:#E5EBEF,stroke:#8B9DA7,stroke-width:1px
-    style ROUTING fill:#E8E4EA,stroke:#9A8EA0,stroke-width:1px
-    style PREDICTION fill:#EEE7E2,stroke:#A89284,stroke-width:1px
-    style TRAINING fill:#F0EDE8,stroke:#B2A99E,stroke-width:1px
+    style INPUT fill:#EEF2EF,stroke:#A8B7B0,stroke-width:1px
+    style DISCOVERY fill:#EDF2F4,stroke:#AAB9BF,stroke-width:1px
+    style ROUTING fill:#F0EDF2,stroke:#B7AEBB,stroke-width:1px
+    style PREDICTION fill:#F3EFEC,stroke:#BDAEA3,stroke-width:1px
+    style TRAINING fill:#F1F0EC,stroke:#BDB9AE,stroke-width:1px
 
-    classDef input fill:#D5DDD8,stroke:#718078,color:#35423C,stroke-width:1px
-    classDef representation fill:#CAD8E0,stroke:#718692,color:#35434C,stroke-width:1px
-    classDef core fill:#C7C1CE,stroke:#817789,color:#443F4B,stroke-width:1px
-    classDef output fill:#D8C9C0,stroke:#907B6D,color:#4E4139,stroke-width:1px
-    classDef training fill:#DDD8CF,stroke:#958A7D,color:#50483F,stroke-width:1px
+    classDef input fill:#D9E2DE,stroke:#879A91,color:#3F514A,stroke-width:1px
+    classDef representation fill:#D5E0E5,stroke:#8B9DA4,color:#405159,stroke-width:1px
+    classDef core fill:#DDD8E2,stroke:#988DA1,color:#514957,stroke-width:1px
+    classDef output fill:#E5DCD5,stroke:#A69487,color:#5C4F47,stroke-width:1px
+    classDef training fill:#E2DED5,stroke:#A59D90,color:#574F46,stroke-width:1px
     class S,R input
     class O,G,E representation
     class C,M,U,F,Q,P,X,A core
@@ -172,16 +172,34 @@ The sampler adjusts the training composition to improve the representation of mi
 ### Typical workflow
 
 ```mermaid
-flowchart LR
-    A[Data preparation] --> B[Sequence–structure encoding]
-    B --> C[Balanced model training]
-    C --> D[Classification evaluation]
-    D --> E[Localization evaluation]
-    E --> F[Attention and motif analysis]
-    F --> G[Transfer and generalization]
+flowchart TB
+    subgraph TOP[ ]
+        direction LR
+        A(Data preparation) --> B(Sequence–structure encoding)
+        B --> C(Balanced model training)
+        C --> D(Classification evaluation)
+    end
+    subgraph BOTTOM[ ]
+        direction RL
+        E(Localization evaluation) --> F(Attention and motif analysis)
+        F --> G(Transfer and generalization)
+    end
+    D --> E
 
-    classDef stage fill:#D9E1E0,stroke:#778A88,color:#354544,stroke-width:1px
-    class A,B,C,D,E,F,G stage
+    style TOP fill:#F2F5F2,stroke:#B4C1BA,stroke-width:1px
+    style BOTTOM fill:#F3F1F4,stroke:#BDB4C1,stroke-width:1px
+    classDef prepare fill:#D9E5E0,stroke:#8FA49A,color:#40534B,stroke-width:1px
+    classDef encode fill:#D8E3E9,stroke:#91A4AE,color:#40515A,stroke-width:1px
+    classDef train fill:#E2DDE8,stroke:#A295AE,color:#51475A,stroke-width:1px
+    classDef evaluate fill:#E8DFDA,stroke:#AF9F95,color:#5A4C45,stroke-width:1px
+    classDef interpret fill:#E2E6D9,stroke:#9CA78B,color:#4D5742,stroke-width:1px
+    classDef transfer fill:#DDE3E2,stroke:#93A4A3,color:#455352,stroke-width:1px
+    class A prepare
+    class B encode
+    class C train
+    class D,E evaluate
+    class F interpret
+    class G transfer
 ```
 
 ### Citation and license
@@ -219,23 +237,23 @@ mRModN 由五个相互独立的项目仓库组成。每个仓库拥有独立的�
 RNA 修饰预测面临多个相互关联的问题：同一条 RNA 序列可能包含多种修饰；有效信号可能超出短窗口范围；序列顺序和 RNA 空间结构提供互补信息；不同修饰类别之间通常存在明显的数据不平衡。mRModN 将这些问题统一到序列—结构建模流程中。
 
 ```mermaid
-flowchart LR
-    S[RNA 序列] --> SEQ[序列表示]
-    R[RNA 空间结构] --> STR[结构表示]
-    SEQ --> EMB[序列—结构联合嵌入]
+flowchart TB
+    S(RNA 序列) --> SEQ(序列表示)
+    R(RNA 空间结构) --> STR(结构表示)
+    SEQ --> EMB(序列—结构联合嵌入)
     STR --> EMB
-    EMB --> MOTIF[多视角基序发现]
-    MOTIF --> EXPERT[层次化专家混合]
-    EXPERT --> CLASS[多标签分类]
-    EXPERT --> ATT[多锚点注意力池化]
-    ATT --> LOC[核苷酸级定位]
-    CLASS --> PROFILE[修饰类别谱]
-    LOC --> EVIDENCE[位置级证据]
+    EMB --> MOTIF(多视角基序发现)
+    MOTIF --> EXPERT(层次化专家混合)
+    EXPERT --> CLASS(多标签分类)
+    EXPERT --> ATT(多锚点注意力池化)
+    ATT --> LOC(核苷酸级定位)
+    CLASS --> PROFILE(修饰类别谱)
+    LOC --> EVIDENCE(位置级证据)
 
-    classDef input fill:#D5DDD8,stroke:#718078,color:#35423C,stroke-width:1px
-    classDef representation fill:#CAD8E0,stroke:#718692,color:#35434C,stroke-width:1px
-    classDef core fill:#C7C1CE,stroke:#817789,color:#443F4B,stroke-width:1px
-    classDef output fill:#D8C9C0,stroke:#907B6D,color:#4E4139,stroke-width:1px
+    classDef input fill:#D9E2DE,stroke:#879A91,color:#3F514A,stroke-width:1px
+    classDef representation fill:#D5E0E5,stroke:#8B9DA4,color:#405159,stroke-width:1px
+    classDef core fill:#DDD8E2,stroke:#988DA1,color:#514957,stroke-width:1px
+    classDef output fill:#E5DCD5,stroke:#A69487,color:#5C4F47,stroke-width:1px
     class S,R input
     class SEQ,STR,EMB representation
     class MOTIF,EXPERT,ATT core
@@ -250,54 +268,54 @@ flowchart LR
 flowchart TB
     subgraph INPUT[输入与表示]
         direction LR
-        S[RNA 序列] --> O[独热编码与学习特征]
-        R[RNA 空间结构] --> G[结构图特征]
-        O --> E[序列—结构联合嵌入]
+        S(RNA 序列) --> O(独热编码与学习特征)
+        R(RNA 空间结构) --> G(结构图特征)
+        O --> E(序列—结构联合嵌入)
         G --> E
     end
 
     subgraph DISCOVERY[多视角基序发现]
         direction LR
-        E --> C[并行卷积视角]
-        E --> M[图消息传递]
-        C --> U[特征聚合与图权重更新]
+        E --> C(并行卷积视角)
+        E --> M(图消息传递)
+        C --> U(特征聚合与图权重更新)
         M --> U
-        U --> F[基序感知表示]
+        U --> F(基序感知表示)
     end
 
     subgraph ROUTING[层次化专家混合]
         direction LR
-        F --> Q[层次化查询路由器]
-        Q --> P[修饰分组专家池]
-        P --> X[专家特征整合]
+        F --> Q(层次化查询路由器)
+        Q --> P(修饰分组专家池)
+        P --> X(专家特征整合)
     end
 
     subgraph PREDICTION[预测与解释]
         direction LR
-        X --> Y[多标签分类器]
-        X --> A[多锚点注意力池化]
-        Y --> Y1[类别概率]
-        A --> Z[核苷酸定位]
-        Z --> Z1[位置级注意力分数]
+        X --> Y(多标签分类器)
+        X --> A(多锚点注意力池化)
+        Y --> Y1(类别概率)
+        A --> Z(核苷酸定位)
+        Z --> Z1(位置级注意力分数)
     end
 
     subgraph TRAINING[训练支持]
         direction LR
-        T[自适应平衡采样器] -.-> O
-        N[样本增强] -.-> O
+        T(自适应平衡采样器) -.-> O
+        N(样本增强) -.-> O
     end
 
-    style INPUT fill:#E7ECE8,stroke:#8D9B92,stroke-width:1px
-    style DISCOVERY fill:#E5EBEF,stroke:#8B9DA7,stroke-width:1px
-    style ROUTING fill:#E8E4EA,stroke:#9A8EA0,stroke-width:1px
-    style PREDICTION fill:#EEE7E2,stroke:#A89284,stroke-width:1px
-    style TRAINING fill:#F0EDE8,stroke:#B2A99E,stroke-width:1px
+    style INPUT fill:#EEF2EF,stroke:#A8B7B0,stroke-width:1px
+    style DISCOVERY fill:#EDF2F4,stroke:#AAB9BF,stroke-width:1px
+    style ROUTING fill:#F0EDF2,stroke:#B7AEBB,stroke-width:1px
+    style PREDICTION fill:#F3EFEC,stroke:#BDAEA3,stroke-width:1px
+    style TRAINING fill:#F1F0EC,stroke:#BDB9AE,stroke-width:1px
 
-    classDef input fill:#D5DDD8,stroke:#718078,color:#35423C,stroke-width:1px
-    classDef representation fill:#CAD8E0,stroke:#718692,color:#35434C,stroke-width:1px
-    classDef core fill:#C7C1CE,stroke:#817789,color:#443F4B,stroke-width:1px
-    classDef output fill:#D8C9C0,stroke:#907B6D,color:#4E4139,stroke-width:1px
-    classDef training fill:#DDD8CF,stroke:#958A7D,color:#50483F,stroke-width:1px
+    classDef input fill:#D9E2DE,stroke:#879A91,color:#3F514A,stroke-width:1px
+    classDef representation fill:#D5E0E5,stroke:#8B9DA4,color:#405159,stroke-width:1px
+    classDef core fill:#DDD8E2,stroke:#988DA1,color:#514957,stroke-width:1px
+    classDef output fill:#E5DCD5,stroke:#A69487,color:#5C4F47,stroke-width:1px
+    classDef training fill:#E2DED5,stroke:#A59D90,color:#574F46,stroke-width:1px
     class S,R input
     class O,G,E representation
     class C,M,U,F,Q,P,X,A core
@@ -356,16 +374,34 @@ flowchart TB
 ### 典型工作流程
 
 ```mermaid
-flowchart LR
-    A[数据准备] --> B[序列—结构编码]
-    B --> C[平衡训练]
-    C --> D[分类评估]
-    D --> E[定位评估]
-    E --> F[注意力与基序分析]
-    F --> G[迁移与泛化评估]
+flowchart TB
+    subgraph TOP[ ]
+        direction LR
+        A(数据准备) --> B(序列—结构编码)
+        B --> C(平衡训练)
+        C --> D(分类评估)
+    end
+    subgraph BOTTOM[ ]
+        direction RL
+        E(定位评估) --> F(注意力与基序分析)
+        F --> G(迁移与泛化评估)
+    end
+    D --> E
 
-    classDef stage fill:#D9E1E0,stroke:#778A88,color:#354544,stroke-width:1px
-    class A,B,C,D,E,F,G stage
+    style TOP fill:#F2F5F2,stroke:#B4C1BA,stroke-width:1px
+    style BOTTOM fill:#F3F1F4,stroke:#BDB4C1,stroke-width:1px
+    classDef prepare fill:#D9E5E0,stroke:#8FA49A,color:#40534B,stroke-width:1px
+    classDef encode fill:#D8E3E9,stroke:#91A4AE,color:#40515A,stroke-width:1px
+    classDef train fill:#E2DDE8,stroke:#A295AE,color:#51475A,stroke-width:1px
+    classDef evaluate fill:#E8DFDA,stroke:#AF9F95,color:#5A4C45,stroke-width:1px
+    classDef interpret fill:#E2E6D9,stroke:#9CA78B,color:#4D5742,stroke-width:1px
+    classDef transfer fill:#DDE3E2,stroke:#93A4A3,color:#455352,stroke-width:1px
+    class A prepare
+    class B encode
+    class C train
+    class D,E evaluate
+    class F interpret
+    class G transfer
 ```
 
 ### 引用与许可
