@@ -17,6 +17,20 @@ mRModN is a deep learning framework for multi-category RNA modification analysis
 The framework is designed for biological sequence analysis across multiple organisms, modification categories, and sequencing technologies. Its outputs can be examined at the prediction level and at the level of the sequence or structural patterns that support each prediction.
 ![Graphic Abstract](./Graphical%20abstract.png)
 
+### Project organization
+
+mRModN is composed of five independent project repositories. Each repository has its own environment, data protocol, training or analysis entry points, and output management. This repository is the **mRModN project homepage and documentation hub**. It provides the project overview, methodological guidance, repository navigation, and usage context; it does not contain the training data or serve as the runtime dependency of the five independent projects.
+
+| Repository | Primary responsibility |
+|---|---|
+| [`human`](https://github.com/your-org/human) | Human RNA modification prediction, model training, evaluation, and model comparison |
+| [`plant`](https://github.com/your-org/plant) | Plant RNA modification analysis and cross-species transfer evaluation |
+| [`ac4c`](https://github.com/your-org/ac4c) | Focused ac4C prediction under balanced and unbalanced evaluation protocols |
+| [`3gen`](https://github.com/your-org/3gen) | Third-generation and direct RNA sequencing analysis and generalization studies |
+| [`visual`](https://github.com/your-org/visual) | Offline visualization of attention, motifs, RNA structure, and model outputs |
+
+The repository links use the placeholder organization name `your-org` and should be replaced with the actual GitHub organization or user name after the independent repositories are created.
+
 ### From sequence to interpretable prediction
 
 RNA modification prediction involves several related challenges: one RNA sequence may contain multiple modification types; informative signals may extend beyond a short fixed window; sequence order and RNA spatial structure provide complementary evidence; and modification classes are often strongly imbalanced. mRModN addresses these challenges in one sequence–structure modeling pipeline.
@@ -156,20 +170,6 @@ The sampler adjusts the training composition to improve the representation of mi
 - **Cross-domain evaluation:** learned representations can be assessed across species, datasets, and sequencing technologies.
 - **Interpretable analysis:** attention, motifs, structure-aware graphs, and position-specific scores support biological inspection.
 
-### Independent project repositories
-
-The project is distributed as five independent repositories. Each repository has its own environment, data protocol, training or analysis entry points, and output management.
-
-| Repository | Primary responsibility |
-|---|---|
-| [`human`](https://github.com/your-org/human) | Human RNA modification prediction, model training, evaluation, and model comparison |
-| [`plant`](https://github.com/your-org/plant) | Plant RNA modification analysis and cross-species transfer evaluation |
-| [`ac4c`](https://github.com/your-org/ac4c) | Focused ac4C prediction under balanced and unbalanced evaluation protocols |
-| [`3gen`](https://github.com/your-org/3gen) | Third-generation and direct RNA sequencing analysis and generalization studies |
-| [`visual`](https://github.com/your-org/visual) | Offline visualization of attention, motifs, RNA structure, and model outputs |
-
-The five repositories are intended to operate independently and do not require this homepage repository at runtime.
-
 ### Typical workflow
 
 ```mermaid
@@ -200,6 +200,20 @@ When using mRModN or any independent project repository, please cite the associa
 mRModN 是一个面向多类别 RNA 修饰分析的深度学习框架。该框架融合长上下文序列建模、RNA 空间结构表示、基序发现、层次化专家路由和类别感知注意力，用于同时完成 RNA 修饰的整体分类与核苷酸级定位。
 
 项目面向多物种、多修饰类别和多种测序技术下的生物序列分析。模型输出不仅可以用于判断 RNA 中可能存在的修饰类型，还可以进一步分析支持预测的序列模式与结构模式。
+
+### 项目组成
+
+mRModN 由五个相互独立的项目仓库组成。每个仓库拥有独立的运行环境、数据协议、训练或分析入口以及输出管理方式。当前仓库是 **mRModN 的项目首页与说明导航中心**，用于介绍项目目标、解释方法流程、提供仓库导航和使用指引；本仓库不承担训练数据存储，也不是五个独立项目运行时的依赖。
+
+| 仓库 | 主要职责 |
+|---|---|
+| [`human`](https://github.com/your-org/human) | 人类 RNA 修饰预测、模型训练、评估与模型比较 |
+| [`plant`](https://github.com/your-org/plant) | 植物 RNA 修饰分析与跨物种迁移评估 |
+| [`ac4c`](https://github.com/your-org/ac4c) | 在平衡与非平衡评估协议下开展 ac4C 专项预测 |
+| [`3gen`](https://github.com/your-org/3gen) | 第三代测序与直接 RNA 测序分析及泛化研究 |
+| [`visual`](https://github.com/your-org/visual) | 注意力、基序、RNA 结构和模型输出的离线可视化 |
+
+表格中的链接暂时使用占位组织名 `your-org`。创建五个独立 GitHub 仓库后，应将其替换为实际的 GitHub 组织名或用户名。
 
 ### 从序列到可解释预测
 
@@ -339,20 +353,6 @@ flowchart TB
 - **序列—结构融合：** 联合建模一级序列与 RNA 折叠产生的空间关系。
 - **跨域评估：** 支持在不同物种、数据集和测序技术之间评估表示的迁移能力。
 - **可解释分析：** 通过注意力、基序、结构图和位置级分数辅助生物学分析。
-
-### 独立项目仓库
-
-项目由五个相互独立的仓库组成。每个仓库拥有独立的运行环境、数据协议、训练或分析入口以及输出管理方式。
-
-| 仓库 | 主要职责 |
-|---|---|
-| [`human`](https://github.com/your-org/human) | 人类 RNA 修饰预测、模型训练、评估与模型比较 |
-| [`plant`](https://github.com/your-org/plant) | 植物 RNA 修饰分析与跨物种迁移评估 |
-| [`ac4c`](https://github.com/your-org/ac4c) | 在平衡与非平衡评估协议下开展 ac4C 专项预测 |
-| [`3gen`](https://github.com/your-org/3gen) | 第三代测序与直接 RNA 测序分析及泛化研究 |
-| [`visual`](https://github.com/your-org/visual) | 注意力、基序、RNA 结构和模型输出的离线可视化 |
-
-五个仓库均可独立运行，运行时不依赖本项目首页仓库。
 
 ### 典型工作流程
 
