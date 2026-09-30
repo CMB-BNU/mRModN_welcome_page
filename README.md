@@ -15,7 +15,7 @@
 mRModN is a deep learning framework for multi-category RNA modification analysis. It integrates long-context sequence modeling, RNA spatial structure representation, motif discovery, hierarchical expert routing, and class-aware attention to support both global modification classification and nucleotide-level localization.
 
 The framework is designed for biological sequence analysis across multiple organisms, modification categories, and sequencing technologies. Its outputs can be examined at the prediction level and at the level of the sequence or structural patterns that support each prediction.
-![Graphic Abstract](Graphical abstract.png)
+![Graphic Abstract](./Graphical%20abstract.png)
 
 ### From sequence to interpretable prediction
 
